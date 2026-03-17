@@ -1,1251 +1,525 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>🧠💀 BRAINROT CENTRAL 💀🧠</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka+One&family=Boogaloo&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka+One&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --neon-pink: #ff00ff;
-      --neon-cyan: #00ffff;
-      --neon-yellow: #ffff00;
-      --neon-green: #00ff00;
-      --neon-orange: #ff6600;
-      --dark: #050510;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: var(--dark);
-      font-family: 'Fredoka One', cursive;
-      overflow-x: hidden;
-      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='28' font-size='28'%3E🧠%3C/text%3E%3C/svg%3E"), auto;
-    }
-
-    /* ========================
-       SCROLLING STAR BG
-    ======================== */
-    .star-bg {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .star {
-      position: absolute;
-      border-radius: 50%;
-      background: white;
-      animation: twinkle var(--dur, 3s) infinite alternate;
-    }
-
-    @keyframes twinkle {
-      from { opacity: 0.1; transform: scale(1); }
-      to   { opacity: 1; transform: scale(1.5); }
-    }
-
-    /* ========================
-       HERO HEADER
-    ======================== */
-    .hero {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      padding: 60px 20px 40px;
-      background: linear-gradient(180deg, #0d0024 0%, transparent 100%);
-    }
-
-    .hero-title {
-      font-family: 'Bangers', cursive;
-      font-size: clamp(3rem, 12vw, 9rem);
-      letter-spacing: 4px;
-      line-height: 1;
-      background: linear-gradient(90deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
-      background-size: 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradientShift 2s linear infinite, shake 0.1s infinite;
-      text-shadow: none;
-      filter: drop-shadow(0 0 20px #ff00ff) drop-shadow(0 0 40px #00ffff);
-    }
-
-    @keyframes gradientShift {
-      0%   { background-position: 0%; }
-      100% { background-position: 200%; }
-    }
-
-    @keyframes shake {
-      0%   { transform: translate(0,0) rotate(0deg); }
-      25%  { transform: translate(-1px, 1px) rotate(-0.3deg); }
-      50%  { transform: translate(1px, -1px) rotate(0.3deg); }
-      75%  { transform: translate(-1px, 0) rotate(-0.2deg); }
-      100% { transform: translate(0,0) rotate(0deg); }
-    }
-
-    .hero-sub {
-      font-family: 'Bangers', cursive;
-      font-size: clamp(1rem, 4vw, 2.5rem);
-      color: var(--neon-yellow);
-      letter-spacing: 3px;
-      margin-top: 10px;
-      animation: blink 0.7s step-end infinite;
-    }
-
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-
-    .hero-emojis {
-      font-size: clamp(2rem, 6vw, 4rem);
-      margin-top: 20px;
-      animation: spin-emojis 4s linear infinite;
-      display: inline-block;
-    }
-
-    @keyframes spin-emojis {
-      0%   { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* ========================
-       TICKER MARQUEE
-    ======================== */
-    .ticker-wrap {
-      position: relative;
-      z-index: 10;
-      background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan), var(--neon-yellow), var(--neon-green));
-      padding: 12px 0;
-      overflow: hidden;
-      white-space: nowrap;
-      border-top: 3px solid white;
-      border-bottom: 3px solid white;
-    }
-
-    .ticker-content {
-      display: inline-block;
-      animation: ticker 18s linear infinite;
-      font-family: 'Bangers', cursive;
-      font-size: 1.5rem;
-      letter-spacing: 3px;
-      color: #000;
-    }
-
-    @keyframes ticker {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ========================
-       CARD GRID
-    ======================== */
-    .grid {
-      position: relative;
-      z-index: 10;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 28px;
-      padding: 50px 30px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .card {
-      border-radius: 20px;
-      overflow: hidden;
-      position: relative;
-      background: rgba(255,255,255,0.04);
-      border: 2px solid rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      transition: transform 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-      animation: float var(--flt, 4s) ease-in-out infinite alternate;
-    }
-
-    @keyframes float {
-      from { transform: translateY(0px) rotate(var(--rot,0deg)); }
-      to   { transform: translateY(-12px) rotate(calc(var(--rot,0deg) * -1)); }
-    }
-
-    .card:hover {
-      transform: scale(1.08) rotate(2deg) !important;
-      box-shadow: 0 0 40px var(--glow, #ff00ff), 0 0 80px var(--glow, #ff00ff);
-      z-index: 100;
-      animation: none;
-    }
-
-    .card-img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-      filter: saturate(1.4) contrast(1.1);
-      transition: filter 0.3s;
-    }
-
-    .card:hover .card-img {
-      filter: saturate(2) contrast(1.2) hue-rotate(15deg);
-    }
-
-    .card-body {
-      padding: 18px;
-    }
-
-    .card-tag {
-      font-family: 'Bangers', cursive;
-      font-size: 0.85rem;
-      letter-spacing: 2px;
-      padding: 4px 12px;
-      border-radius: 50px;
-      display: inline-block;
-      margin-bottom: 10px;
-    }
-
-    .card-title {
-      font-family: 'Bangers', cursive;
-      font-size: 1.8rem;
-      letter-spacing: 2px;
-      line-height: 1.1;
-      color: white;
-    }
-
-    .card-desc {
-      color: rgba(255,255,255,0.75);
-      font-size: 1rem;
-      margin-top: 8px;
-      line-height: 1.4;
-    }
-
-    /* Card colours */
-    .card-skibidi { --glow: #00ffff; border-color: #00ffff44; }
-    .card-skibidi .card-tag { background: #00ffff; color: #000; }
-
-    .card-sigma   { --glow: #ff6600; border-color: #ff660044; }
-    .card-sigma   .card-tag { background: #ff6600; color: #000; }
-
-    .card-ohio    { --glow: #990000; border-color: #99000044; }
-    .card-ohio    .card-tag { background: #990000; color: #fff; }
-
-    .card-rizz    { --glow: #ff00ff; border-color: #ff00ff44; }
-    .card-rizz    .card-tag { background: #ff00ff; color: #000; }
-
-    .card-npc     { --glow: #888888; border-color: #88888844; }
-    .card-npc     .card-tag { background: #888888; color: #000; }
-
-    .card-fanum   { --glow: #ffff00; border-color: #ffff0044; }
-    .card-fanum   .card-tag { background: #ffff00; color: #000; }
-
-    /* ========================
-       SIGMA GRINDSET SECTION
-    ======================== */
-    .sigma-section {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      padding: 60px 20px;
-      background: radial-gradient(ellipse at center, #1a0a00 0%, transparent 70%);
-    }
-
-    .sigma-title {
-      font-family: 'Bangers', cursive;
-      font-size: clamp(2.5rem, 8vw, 6rem);
-      color: var(--neon-orange);
-      letter-spacing: 5px;
-      text-shadow: 0 0 30px #ff6600, 0 0 60px #ff3300;
-      animation: pulse-sigma 1.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse-sigma {
-      0%, 100% { transform: scale(1); }
-      50%       { transform: scale(1.04); }
-    }
-
-    .sigma-quotes {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 40px;
-      padding: 0 20px;
-    }
-
-    .sigma-quote {
-      background: linear-gradient(135deg, rgba(255,102,0,0.15), rgba(255,0,0,0.1));
-      border: 2px solid #ff660055;
-      border-radius: 16px;
-      padding: 20px 28px;
-      max-width: 340px;
-      color: white;
-      font-size: 1.1rem;
-      position: relative;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-
-    .sigma-quote:hover {
-      transform: scale(1.05) rotate(-1deg);
-      border-color: #ff6600;
-      box-shadow: 0 0 30px #ff6600;
-    }
-
-    .sigma-quote .quote-icon {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    /* ========================
-       OHIO DANGER ZONE
-    ======================== */
-    .ohio-section {
-      position: relative;
-      z-index: 10;
-      padding: 60px 20px;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .ohio-bg {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 50%, #1a0000 0%, transparent 70%);
-      animation: ohio-pulse 3s ease-in-out infinite;
-    }
-
-    @keyframes ohio-pulse {
-      0%, 100% { opacity: 0.5; transform: scale(1); }
-      50%       { opacity: 1;   transform: scale(1.05); }
-    }
-
-    .ohio-title {
-      font-family: 'Bangers', cursive;
-      font-size: clamp(2.5rem, 8vw, 6rem);
-      color: #ff3300;
-      letter-spacing: 5px;
-      text-shadow: 0 0 40px #ff0000, 0 0 80px darkred;
-      animation: glitch 2s infinite;
-      position: relative;
-    }
-
-    @keyframes glitch {
-      0%   { text-shadow: 0 0 40px #ff0000, 0 0 80px darkred; }
-      20%  { text-shadow: -3px 0 #00ffff, 3px 0 #ff00ff, 0 0 40px #ff0000; }
-      40%  { text-shadow: 3px 0 #ff00ff, -3px 0 #00ffff, 0 0 40px #ff0000; }
-      60%  { text-shadow: 0 0 40px #ff0000, 0 0 80px darkred; }
-      80%  { text-shadow: -2px 0 #00ffff, 2px 0 #ff00ff, 0 0 40px #ff0000; }
-      100% { text-shadow: 0 0 40px #ff0000, 0 0 80px darkred; }
-    }
-
-    .ohio-facts {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 40px;
-    }
-
-    .ohio-fact {
-      background: rgba(153,0,0,0.2);
-      border: 2px solid #990000;
-      border-radius: 12px;
-      padding: 16px 24px;
-      color: #ff9999;
-      font-size: 1.05rem;
-      max-width: 280px;
-      animation: ohio-fact-shake 0.5s infinite;
-    }
-
-    @keyframes ohio-fact-shake {
-      0%   { transform: translate(0,0); }
-      25%  { transform: translate(-0.5px, 0.5px); }
-      50%  { transform: translate(0.5px, -0.5px); }
-      75%  { transform: translate(-0.5px, 0); }
-      100% { transform: translate(0,0); }
-    }
-
-    /* ========================
-       RIZZ METER
-    ======================== */
-    .rizz-section {
-      position: relative;
-      z-index: 10;
-      padding: 60px 20px;
-      text-align: center;
-      background: radial-gradient(ellipse at center, #1a0030 0%, transparent 70%);
-    }
-
-    .rizz-title {
-      font-family: 'Bangers', cursive;
-      font-size: clamp(2.5rem, 8vw, 6rem);
-      color: var(--neon-pink);
-      letter-spacing: 5px;
-      text-shadow: 0 0 20px #ff00ff, 0 0 50px #ff00ff;
-      animation: rizz-bounce 0.8s ease-in-out infinite alternate;
-    }
-
-    @keyframes rizz-bounce {
-      from { transform: scale(1) rotate(-1deg); }
-      to   { transform: scale(1.05) rotate(1deg); }
-    }
-
-    .rizz-meter-wrap {
-      max-width: 600px;
-      margin: 40px auto 0;
-    }
-
-    .rizz-label {
-      color: white;
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      text-align: left;
-    }
-
-    .rizz-bar-bg {
-      background: rgba(255,255,255,0.1);
-      border-radius: 50px;
-      height: 30px;
-      overflow: hidden;
-      border: 2px solid rgba(255,0,255,0.3);
-      margin-bottom: 20px;
-    }
-
-    .rizz-bar-fill {
-      height: 100%;
-      border-radius: 50px;
-      background: linear-gradient(90deg, #ff00ff, #00ffff);
-      position: relative;
-      animation: fillBar var(--delay, 2s) ease-out forwards;
-      transform-origin: left;
-    }
-
-    @keyframes fillBar {
-      from { width: 0; }
-      to   { width: var(--w, 80%); }
-    }
-
-    .rizz-bar-fill::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      animation: shimmer 1.5s infinite;
-    }
-
-    @keyframes shimmer {
-      from { transform: translateX(-100%); }
-      to   { transform: translateX(200%); }
-    }
-
-    /* ========================
-       NPC MODE SECTION
-    ======================== */
-    .npc-section {
-      position: relative;
-      z-index: 10;
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    .npc-title {
-      font-family: 'Bangers', cursive;
-      font-size: clamp(2.5rem, 8vw, 6rem);
-      color: #aaaaaa;
-      letter-spacing: 5px;
-      text-shadow: 0 0 20px #ffffff44;
-      animation: npc-stutter 4s infinite;
-    }
-
-    @keyframes npc-stutter {
-      0%,90%,100% { transform: translate(0,0); opacity: 1; }
-      91%          { transform: translate(-3px, 0); opacity: 0.8; }
-      93%          { transform: translate(3px, 0); opacity: 1; }
-      95%          { transform: translate(-2px, 0); opacity: 0.7; }
-      97%          { transform: translate(0,0); opacity: 1; }
-    }
-
-    .npc-dialogue {
-      display: inline-block;
-      background: rgba(255,255,255,0.08);
-      border: 2px solid #888;
-      border-radius: 12px;
-      padding: 20px 30px;
-      color: #ccc;
-      font-size: 1.1rem;
-      max-width: 500px;
-      margin-top: 30px;
-      position: relative;
-    }
-
-    .npc-dialogue::before {
-      content: '▲';
-      position: absolute;
-      top: -18px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #888;
-      font-size: 1.2rem;
-    }
-
-    .npc-dialogue .typewriter {
-      animation: typewriter 3s steps(40) infinite;
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 3px solid #aaa;
-    }
-
-    @keyframes typewriter {
-      0%    { width: 0; }
-      70%   { width: 100%; }
-      80%   { width: 100%; }
-      90%   { width: 0; }
-      100%  { width: 0; }
-    }
-
-    /* ========================
-       FLOATING EMOJIS
-    ======================== */
-    .floating-emoji {
-      position: fixed;
-      font-size: 2rem;
-      pointer-events: none;
-      z-index: 999;
-      animation: floatUp var(--dur, 5s) linear forwards;
-      opacity: 1;
-    }
-
-    @keyframes floatUp {
-      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(-110vh) rotate(720deg); opacity: 0; }
-    }
-
-    /* ========================
-       SKIBIDI COUNTER
-    ======================== */
-    .counter-section {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      padding: 40px 20px;
-      background: radial-gradient(ellipse at center, #002233 0%, transparent 70%);
-    }
-
-    .counter-title {
-      font-family: 'Bangers', cursive;
-      font-size: clamp(1.5rem, 5vw, 3rem);
-      color: var(--neon-cyan);
-      letter-spacing: 4px;
-      text-shadow: 0 0 20px #00ffff;
-      margin-bottom: 20px;
-    }
-
-    .counter-display {
-      font-family: 'Bangers', cursive;
-      font-size: clamp(4rem, 15vw, 10rem);
-      color: white;
-      line-height: 1;
-      text-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff;
-      animation: counter-pop 0.1s ease-out;
-    }
-
-    .counter-btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 16px 50px;
-      font-family: 'Bangers', cursive;
-      font-size: 2rem;
-      letter-spacing: 3px;
-      border: none;
-      border-radius: 50px;
-      background: linear-gradient(135deg, #00ffff, #0044ff);
-      color: #000;
-      cursor: pointer;
-      transition: transform 0.1s, box-shadow 0.1s;
-      box-shadow: 0 0 20px #00ffff44;
-    }
-
-    .counter-btn:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 40px #00ffff;
-    }
-
-    .counter-btn:active {
-      transform: scale(0.95);
-    }
-
-    /* ========================
-       FANUM TAX SECTION
-    ======================== */
-    .fanum-section {
-      position: relative;
-      z-index: 10;
-      padding: 60px 20px;
-      text-align: center;
-      background: radial-gradient(ellipse at center, #1a1a00 0%, transparent 70%);
-    }
-
-    .fanum-title {
-      font-family: 'Bangers', cursive;
-      font-size: clamp(2.5rem, 8vw, 6rem);
-      color: var(--neon-yellow);
-      letter-spacing: 5px;
-      text-shadow: 0 0 20px #ffff00, 0 0 60px #ffaa00;
-      animation: fanum-spin 6s linear infinite;
-      display: inline-block;
-    }
-
-    @keyframes fanum-spin {
-      0%   { transform: perspective(400px) rotateY(0deg); }
-      50%  { transform: perspective(400px) rotateY(180deg); color: transparent; }
-      51%  { transform: perspective(400px) rotateY(180deg); }
-      100% { transform: perspective(400px) rotateY(360deg); }
-    }
-
-    /* ========================
-       SCROLLING TEXT WALL
-    ======================== */
-    .text-wall {
-      position: relative;
-      z-index: 10;
-      padding: 50px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      overflow: hidden;
-    }
-
-    .text-row {
-      white-space: nowrap;
-      font-family: 'Bangers', cursive;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      letter-spacing: 8px;
-      opacity: 0.08;
-      animation: slideRow var(--speed, 20s) linear infinite;
-    }
-
-    .text-row:nth-child(even) {
-      animation-direction: reverse;
-    }
-
-    @keyframes slideRow {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ========================
-       FOOTER
-    ======================== */
-    .footer {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      padding: 40px 20px;
-      font-family: 'Bangers', cursive;
-      font-size: 1.2rem;
-      letter-spacing: 3px;
-      color: rgba(255,255,255,0.4);
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .footer a {
-      color: var(--neon-cyan);
-      text-decoration: none;
-    }
-
-    /* ========================
-       POPUP
-    ======================== */
-    .popup-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    .popup-box {
-      background: linear-gradient(135deg, #0d0024, #002233);
-      border: 3px solid var(--neon-cyan);
-      border-radius: 24px;
-      padding: 40px;
-      max-width: 500px;
-      text-align: center;
-      box-shadow: 0 0 60px #00ffff44;
-      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    @keyframes popIn {
-      from { transform: scale(0.5) rotate(-10deg); opacity: 0; }
-      to   { transform: scale(1) rotate(0deg); opacity: 1; }
-    }
-
-    .popup-emoji {
-      font-size: 4rem;
-      display: block;
-      margin-bottom: 16px;
-    }
-
-    .popup-title {
-      font-family: 'Bangers', cursive;
-      font-size: 2.5rem;
-      color: var(--neon-yellow);
-      letter-spacing: 3px;
-    }
-
-    .popup-text {
-      color: rgba(255,255,255,0.8);
-      margin-top: 12px;
-      font-size: 1.1rem;
-      line-height: 1.5;
-    }
-
-    .popup-close {
-      margin-top: 24px;
-      padding: 14px 40px;
-      font-family: 'Bangers', cursive;
-      font-size: 1.5rem;
-      letter-spacing: 2px;
-      border: none;
-      border-radius: 50px;
-      background: linear-gradient(135deg, #ff00ff, #00ffff);
-      color: #000;
-      cursor: pointer;
-      transition: transform 0.15s;
-    }
-
-    .popup-close:hover { transform: scale(1.08); }
-
-    /* ========================
-       RESPONSIVENESS
-    ======================== */
-    @media (max-width: 600px) {
-      .grid { padding: 30px 15px; gap: 20px; }
-    }
-
-    /* ========================
-       SCROLLBAR
-    ======================== */
-    ::-webkit-scrollbar { width: 10px; }
-    ::-webkit-scrollbar-track { background: #050510; }
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(#ff00ff, #00ffff);
-      border-radius: 10px;
-    }
-
-    /* ========================
-       SECTION DIVIDERS
-    ======================== */
-    .divider {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      padding: 20px;
-      font-size: 2.5rem;
-      letter-spacing: 5px;
-      animation: divider-rotate 2s linear infinite;
-      display: inline-block;
-      width: 100%;
-    }
-
-    @keyframes divider-rotate {
-      0%  { letter-spacing: 5px; }
-      50% { letter-spacing: 15px; }
-    }
-
-    .section-header-wrap {
-      text-align: center;
-      padding-top: 30px;
-    }
+    :root{--pink:#ff00ff;--cyan:#00ffff;--yellow:#ffff00;--orange:#ff6600;--dark:#050510}
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{background:var(--dark);font-family:'Fredoka One',cursive;overflow-x:hidden;cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext y='28' font-size='28'%3E🧠%3C/text%3E%3C/svg%3E"),auto}
+    .star-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+    .star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--d,3s) infinite alternate}
+    @keyframes twinkle{from{opacity:.1;transform:scale(1)}to{opacity:1;transform:scale(1.5)}}
+
+    /* POPUP */
+    .popup{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;display:flex;align-items:center;justify-content:center;animation:fadeIn .3s}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .popup-box{background:linear-gradient(135deg,#0d0024,#002233);border:3px solid var(--cyan);border-radius:24px;padding:40px;max-width:500px;text-align:center;box-shadow:0 0 60px #00ffff44;animation:popIn .4s cubic-bezier(.34,1.56,.64,1)}
+    @keyframes popIn{from{transform:scale(.5) rotate(-10deg);opacity:0}to{transform:scale(1);opacity:1}}
+    .popup-emoji{font-size:4rem;display:block;margin-bottom:16px}
+    .popup-title{font-family:'Bangers',cursive;font-size:2.5rem;color:var(--yellow);letter-spacing:3px}
+    .popup-text{color:rgba(255,255,255,.8);margin-top:12px;font-size:1.05rem;line-height:1.5}
+    .popup-btn{margin-top:24px;padding:14px 40px;font-family:'Bangers',cursive;font-size:1.5rem;letter-spacing:2px;border:none;border-radius:50px;background:linear-gradient(135deg,#ff00ff,#00ffff);color:#000;cursor:pointer;transition:transform .15s}
+    .popup-btn:hover{transform:scale(1.08)}
+
+    /* HERO */
+    .hero{position:relative;z-index:10;text-align:center;padding:60px 20px 40px;background:linear-gradient(180deg,#0d0024 0%,transparent 100%)}
+    .hero-title{font-family:'Bangers',cursive;font-size:clamp(3rem,12vw,9rem);letter-spacing:4px;line-height:1;background:linear-gradient(90deg,#ff00ff,#00ffff,#ffff00,#ff00ff);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradShift 2s linear infinite,shake .1s infinite;filter:drop-shadow(0 0 20px #ff00ff) drop-shadow(0 0 40px #00ffff)}
+    @keyframes gradShift{0%{background-position:0%}100%{background-position:200%}}
+    @keyframes shake{0%{transform:translate(0,0) rotate(0)}25%{transform:translate(-1px,1px) rotate(-.3deg)}50%{transform:translate(1px,-1px) rotate(.3deg)}75%{transform:translate(-1px,0) rotate(-.2deg)}}
+    .hero-sub{font-family:'Bangers',cursive;font-size:clamp(1rem,4vw,2.5rem);color:var(--yellow);letter-spacing:3px;margin-top:10px;animation:blink .7s step-end infinite}
+    @keyframes blink{50%{opacity:0}}
+    .hero-emojis{font-size:clamp(2rem,6vw,4rem);margin-top:20px;animation:spinE 4s linear infinite;display:inline-block}
+    @keyframes spinE{to{transform:rotate(360deg)}}
+
+    /* TICKER */
+    .ticker{position:relative;z-index:10;background:linear-gradient(90deg,var(--pink),var(--cyan),var(--yellow),#00ff00);padding:12px 0;overflow:hidden;white-space:nowrap;border-top:3px solid #fff;border-bottom:3px solid #fff}
+    .ticker-inner{display:inline-block;animation:tick 18s linear infinite;font-family:'Bangers',cursive;font-size:1.5rem;letter-spacing:3px;color:#000}
+    @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    /* CARDS GRID */
+    .grid{position:relative;z-index:10;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px;padding:50px 30px;max-width:1600px;margin:0 auto}
+    .card{border-radius:18px;overflow:hidden;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.15);backdrop-filter:blur(8px);cursor:pointer;animation:float var(--f,4s) ease-in-out infinite alternate;transition:transform .2s,box-shadow .2s;position:relative}
+    @keyframes float{from{transform:translateY(0) rotate(var(--r,0deg))}to{transform:translateY(-12px) rotate(calc(var(--r,0deg)*-1))}}
+    .card:hover{transform:scale(1.09) rotate(2deg)!important;box-shadow:0 0 40px var(--glow,#ff00ff),0 0 80px var(--glow,#ff00ff);z-index:100;animation:none}
+    .card img{width:100%;height:220px;object-fit:cover;display:block;filter:saturate(1.4) contrast(1.1);transition:filter .3s}
+    .card:hover img{filter:saturate(2) contrast(1.2) hue-rotate(15deg)}
+    .card-body{padding:14px}
+    .card-tag{font-family:'Bangers',cursive;font-size:.8rem;letter-spacing:2px;padding:3px 10px;border-radius:50px;display:inline-block;margin-bottom:8px}
+    .card-title{font-family:'Bangers',cursive;font-size:1.6rem;letter-spacing:2px;color:#fff;line-height:1.1}
+    /* Sound pulse ring on click */
+    .card::after{content:'';position:absolute;inset:0;border-radius:18px;border:3px solid var(--glow,#ff00ff);opacity:0;pointer-events:none;transition:none}
+    .card.playing::after{animation:ring .6s ease-out forwards}
+    @keyframes ring{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.08)}}
+
+    /* Card themes */
+    .c-cyan{--glow:#00ffff;border-color:#00ffff33}.c-cyan .card-tag{background:#00ffff;color:#000}
+    .c-orange{--glow:#ff6600;border-color:#ff660033}.c-orange .card-tag{background:#ff6600;color:#000}
+    .c-red{--glow:#ff2200;border-color:#ff220033}.c-red .card-tag{background:#990000;color:#fff}
+    .c-pink{--glow:#ff00ff;border-color:#ff00ff33}.c-pink .card-tag{background:#ff00ff;color:#000}
+    .c-gray{--glow:#aaaaaa;border-color:#aaaaaa33}.c-gray .card-tag{background:#888;color:#000}
+    .c-yellow{--glow:#ffff00;border-color:#ffff0033}.c-yellow .card-tag{background:#ffff00;color:#000}
+    .c-purple{--glow:#cc00ff;border-color:#cc00ff33}.c-purple .card-tag{background:#cc00ff;color:#fff}
+    .c-green{--glow:#00ff88;border-color:#00ff8833}.c-green .card-tag{background:#00ff88;color:#000}
+    .c-blue{--glow:#0088ff;border-color:#0088ff33}.c-blue .card-tag{background:#0088ff;color:#fff}
+    .c-white{--glow:#ffffff;border-color:#ffffff33}.c-white .card-tag{background:#fff;color:#000}
+
+    /* SIGMA */
+    .sigma-section{position:relative;z-index:10;text-align:center;padding:60px 20px;background:radial-gradient(ellipse at center,#1a0a00 0%,transparent 70%)}
+    .sigma-title{font-family:'Bangers',cursive;font-size:clamp(2.5rem,8vw,6rem);color:var(--orange);letter-spacing:5px;text-shadow:0 0 30px #ff6600,0 0 60px #ff3300;animation:pulse 1.5s ease-in-out infinite}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+    .sigma-quotes{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:40px;padding:0 20px}
+    .sigma-quote{background:linear-gradient(135deg,rgba(255,102,0,.15),rgba(255,0,0,.1));border:2px solid #ff660055;border-radius:16px;padding:20px 28px;max-width:340px;color:#fff;font-size:1.1rem;transition:transform .2s,border-color .2s}
+    .sigma-quote:hover{transform:scale(1.05) rotate(-1deg);border-color:#ff6600;box-shadow:0 0 30px #ff6600}
+    .sigma-quote .qi{font-size:2rem;display:block;margin-bottom:10px}
+
+    /* OHIO */
+    .ohio-section{position:relative;z-index:10;padding:60px 20px;text-align:center;overflow:hidden}
+    .ohio-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,#1a0000 0%,transparent 70%);animation:ohioPulse 3s ease-in-out infinite}
+    @keyframes ohioPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+    .ohio-title{font-family:'Bangers',cursive;font-size:clamp(2.5rem,8vw,6rem);color:#ff3300;letter-spacing:5px;animation:glitch 2s infinite;position:relative}
+    @keyframes glitch{0%,60%,100%{text-shadow:0 0 40px #ff0000,0 0 80px darkred}20%{text-shadow:-3px 0 #0ff,3px 0 #f0f,0 0 40px #f00}40%{text-shadow:3px 0 #f0f,-3px 0 #0ff,0 0 40px #f00}80%{text-shadow:-2px 0 #0ff,2px 0 #f0f,0 0 40px #f00}}
+    .ohio-facts{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:40px}
+    .ohio-fact{background:rgba(153,0,0,.2);border:2px solid #990000;border-radius:12px;padding:16px 24px;color:#ff9999;font-size:1.05rem;max-width:280px;animation:fshake .5s infinite}
+    @keyframes fshake{0%,100%{transform:translate(0)}25%{transform:translate(-.5px,.5px)}50%{transform:translate(.5px,-.5px)}75%{transform:translate(-.5px,0)}}
+
+    /* RIZZ */
+    .rizz-section{position:relative;z-index:10;padding:60px 20px;text-align:center;background:radial-gradient(ellipse at center,#1a0030 0%,transparent 70%)}
+    .rizz-title{font-family:'Bangers',cursive;font-size:clamp(2.5rem,8vw,6rem);color:var(--pink);letter-spacing:5px;text-shadow:0 0 20px #f0f,0 0 50px #f0f;animation:rizzBounce .8s ease-in-out infinite alternate}
+    @keyframes rizzBounce{from{transform:scale(1) rotate(-1deg)}to{transform:scale(1.05) rotate(1deg)}}
+    .rizz-wrap{max-width:600px;margin:40px auto 0}
+    .rlabel{color:#fff;font-size:1.2rem;margin-bottom:10px;text-align:left}
+    .rbar-bg{background:rgba(255,255,255,.1);border-radius:50px;height:30px;overflow:hidden;border:2px solid rgba(255,0,255,.3);margin-bottom:20px}
+    .rbar-fill{height:100%;border-radius:50px;position:relative;animation:fillBar var(--dl,2s) ease-out forwards}
+    @keyframes fillBar{from{width:0}to{width:var(--w,80%)}}
+    .rbar-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:shimmer 1.5s infinite}
+    @keyframes shimmer{from{transform:translateX(-100%)}to{transform:translateX(200%)}}
+
+    /* NPC */
+    .npc-section{position:relative;z-index:10;padding:60px 20px;text-align:center}
+    .npc-title{font-family:'Bangers',cursive;font-size:clamp(2.5rem,8vw,6rem);color:#aaa;letter-spacing:5px;animation:npcStutter 4s infinite}
+    @keyframes npcStutter{0%,90%,100%{transform:translate(0);opacity:1}91%{transform:translate(-3px,0);opacity:.8}93%{transform:translate(3px,0)}95%{transform:translate(-2px,0);opacity:.7}97%{transform:translate(0)}}
+    .npc-dlg{display:inline-block;background:rgba(255,255,255,.08);border:2px solid #888;border-radius:12px;padding:20px 30px;color:#ccc;font-size:1.1rem;max-width:500px;margin-top:30px;position:relative}
+    .npc-dlg::before{content:'▲';position:absolute;top:-18px;left:50%;transform:translateX(-50%);color:#888;font-size:1.2rem}
+    .typewriter{animation:tw 3s steps(40) infinite;overflow:hidden;white-space:nowrap;border-right:3px solid #aaa}
+    @keyframes tw{0%{width:0}70%,80%{width:100%}90%,100%{width:0}}
+
+    /* COUNTER */
+    .counter-section{position:relative;z-index:10;text-align:center;padding:40px 20px;background:radial-gradient(ellipse at center,#002233 0%,transparent 70%)}
+    .counter-title{font-family:'Bangers',cursive;font-size:clamp(1.5rem,5vw,3rem);color:var(--cyan);letter-spacing:4px;text-shadow:0 0 20px #0ff;margin-bottom:20px}
+    .counter-display{font-family:'Bangers',cursive;font-size:clamp(4rem,15vw,10rem);color:#fff;line-height:1;text-shadow:0 0 30px #0ff,0 0 60px #0ff}
+    .btn{display:inline-block;margin-top:20px;padding:16px 50px;font-family:'Bangers',cursive;font-size:2rem;letter-spacing:3px;border:none;border-radius:50px;cursor:pointer;transition:transform .1s,box-shadow .1s}
+    .btn:hover{transform:scale(1.08)}
+    .btn:active{transform:scale(.95)}
+    .btn-cyan{background:linear-gradient(135deg,#0ff,#0044ff);color:#000;box-shadow:0 0 20px #0ff4}
+    .btn-cyan:hover{box-shadow:0 0 40px #0ff}
+    .btn-red{background:linear-gradient(135deg,#440000,#880000);color:#fff;margin-left:16px}
+
+    /* FANUM */
+    .fanum-section{position:relative;z-index:10;padding:60px 20px;text-align:center;background:radial-gradient(ellipse at center,#1a1a00 0%,transparent 70%)}
+    .fanum-title{font-family:'Bangers',cursive;font-size:clamp(2.5rem,8vw,6rem);color:var(--yellow);letter-spacing:5px;text-shadow:0 0 20px #ff0,0 0 60px #fa0;animation:fspy 6s linear infinite;display:inline-block}
+    @keyframes fspy{0%{transform:perspective(400px) rotateY(0)}50%{transform:perspective(400px) rotateY(180deg);color:transparent}51%{transform:perspective(400px) rotateY(180deg)}100%{transform:perspective(400px) rotateY(360deg)}}
+
+    /* TEXT WALL */
+    .text-wall{position:relative;z-index:10;padding:50px 20px;overflow:hidden}
+    .text-row{white-space:nowrap;font-family:'Bangers',cursive;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:8px;opacity:.08;animation:slideRow var(--s,20s) linear infinite}
+    .text-row:nth-child(even){animation-direction:reverse}
+    @keyframes slideRow{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    /* FLOATING */
+    .emoji-fly{position:fixed;font-size:2rem;pointer-events:none;z-index:999;animation:floatUp var(--d,5s) linear forwards}
+    @keyframes floatUp{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(-110vh) rotate(720deg);opacity:0}}
+
+    /* SOUND WAVE VISUALIZER */
+    .sound-wave{display:flex;align-items:flex-end;justify-content:center;gap:4px;height:40px;margin-top:8px;opacity:0;transition:opacity .3s}
+    .sound-wave.active{opacity:1}
+    .bar{width:6px;background:var(--glow,#ff00ff);border-radius:3px;animation:wave calc(var(--sp,.3s) * var(--i,1)) ease-in-out infinite alternate}
+    @keyframes wave{from{height:4px}to{height:28px}}
+
+    /* DIVIDER */
+    .divider{position:relative;z-index:10;text-align:center;padding:20px;font-size:2.5rem;letter-spacing:5px;width:100%;animation:dv 2s linear infinite;display:block}
+    @keyframes dv{0%{letter-spacing:5px}50%{letter-spacing:15px}}
+
+    /* MILESTONE TOAST */
+    .toast{position:fixed;bottom:30px;right:30px;z-index:9000;background:linear-gradient(135deg,#0d0024,#002233);border:3px solid #ff0;border-radius:20px;padding:20px 30px;text-align:center;box-shadow:0 0 40px #ff04;font-family:'Bangers',cursive;animation:popIn .4s cubic-bezier(.34,1.56,.64,1)}
+
+    /* FOOTER */
+    footer{position:relative;z-index:10;text-align:center;padding:40px 20px;font-family:'Bangers',cursive;font-size:1.2rem;letter-spacing:3px;color:rgba(255,255,255,.4);border-top:1px solid rgba(255,255,255,.1)}
+
+    ::-webkit-scrollbar{width:10px}
+    ::-webkit-scrollbar-track{background:#050510}
+    ::-webkit-scrollbar-thumb{background:linear-gradient(#ff00ff,#00ffff);border-radius:10px}
+    @media(max-width:600px){.grid{padding:30px 15px;gap:16px}}
   </style>
 </head>
 <body>
 
-<!-- Star background -->
 <div class="star-bg" id="stars"></div>
 
-<!-- ============================
-     WELCOME POPUP
-============================ -->
-<div class="popup-overlay" id="popup">
+<!-- POPUP -->
+<div class="popup" id="popup">
   <div class="popup-box">
     <span class="popup-emoji">🧠💀</span>
     <div class="popup-title">WELCOME TO BRAINROT CENTRAL</div>
-    <p class="popup-text">
-      ⚠️ WARNING: This site contains extreme levels of <strong>Skibidi toilet rizz</strong>, <strong>Ohio-level sigma grindset</strong> and <strong>max fanum tax</strong>.<br><br>
-      Your brain will NOT survive. 🪦
-    </p>
-    <button class="popup-close" onclick="closePopup()">FR FR NO CAP 🔥</button>
+    <p class="popup-text">⚠️ WARNING: This site contains <strong>extreme brainrot</strong>, <strong>Ohio-level sigma aura</strong> and <strong>max fanum tax</strong>.<br><br>Chaque image a son propre son. 🔊<br>Your brain will NOT survive. 🪦</p>
+    <button class="popup-btn" onclick="closePopup()">FR FR NO CAP 🔥</button>
   </div>
 </div>
 
-<!-- ============================
-     HERO
-============================ -->
+<!-- HERO -->
 <section class="hero">
   <h1 class="hero-title">🧠 BRAINROT CENTRAL 🧠</h1>
   <p class="hero-sub">☠️ PEAK OHIO SIGMA SKIBIDI RIZZ RIZZ RIZZ ☠️</p>
   <div class="hero-emojis">🚽💀🐺😭🎰🔥</div>
 </section>
 
-<!-- ============================
-     TICKER
-============================ -->
-<div class="ticker-wrap">
-  <div class="ticker-content">
-    🚽 SKIBIDI TOILET &nbsp;&nbsp;•&nbsp;&nbsp; 🐺 SIGMA MALE &nbsp;&nbsp;•&nbsp;&nbsp; 🌽 ONLY IN OHIO &nbsp;&nbsp;•&nbsp;&nbsp; 💅 UNSPOKEN RIZZ &nbsp;&nbsp;•&nbsp;&nbsp; 🤖 NPC BEHAVIOR &nbsp;&nbsp;•&nbsp;&nbsp; 🍕 FANUM TAX &nbsp;&nbsp;•&nbsp;&nbsp; 💀 NO CAP FR FR &nbsp;&nbsp;•&nbsp;&nbsp; 🥶 W RIZZ &nbsp;&nbsp;•&nbsp;&nbsp; 🔥 GOATED &nbsp;&nbsp;•&nbsp;&nbsp; 😤 GRINDSET &nbsp;&nbsp;•&nbsp;&nbsp; 🐐 GOAT MODE &nbsp;&nbsp;•&nbsp;&nbsp; 💸 BUSSIN &nbsp;&nbsp;•&nbsp;&nbsp; 😭 IT'S GIVING &nbsp;&nbsp;•&nbsp;&nbsp; 🚽 SKIBIDI TOILET &nbsp;&nbsp;•&nbsp;&nbsp; 🐺 SIGMA MALE &nbsp;&nbsp;•&nbsp;&nbsp; 🌽 ONLY IN OHIO &nbsp;&nbsp;•&nbsp;&nbsp; 💅 UNSPOKEN RIZZ &nbsp;&nbsp;•&nbsp;&nbsp; 🤖 NPC BEHAVIOR &nbsp;&nbsp;•&nbsp;&nbsp; 🍕 FANUM TAX &nbsp;&nbsp;•&nbsp;&nbsp; 💀 NO CAP FR FR &nbsp;&nbsp;•&nbsp;&nbsp; 🥶 W RIZZ &nbsp;&nbsp;•&nbsp;&nbsp; 🔥 GOATED
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    🚽 SKIBIDI TOILET &nbsp;•&nbsp; 🐺 SIGMA MALE &nbsp;•&nbsp; 🌽 ONLY IN OHIO &nbsp;•&nbsp; 💅 UNSPOKEN RIZZ &nbsp;•&nbsp; 🤖 NPC BEHAVIOR &nbsp;•&nbsp; 🍕 FANUM TAX &nbsp;•&nbsp; 💀 NO CAP FR FR &nbsp;•&nbsp; 🥶 W RIZZ &nbsp;•&nbsp; 🔥 GOATED &nbsp;•&nbsp; 😤 GRINDSET &nbsp;•&nbsp; 🐐 GOAT MODE &nbsp;•&nbsp; 💸 BUSSIN &nbsp;•&nbsp; 😭 IT'S GIVING &nbsp;•&nbsp; 🦈 BASED &nbsp;•&nbsp; 🔊 HAWK TUAH &nbsp;•&nbsp; 😈 QUANDALE &nbsp;•&nbsp; 💜 GRIMACE &nbsp;•&nbsp; 🏋️ GIGACHAD &nbsp;•&nbsp; 🚽 SKIBIDI TOILET &nbsp;•&nbsp; 🐺 SIGMA MALE &nbsp;•&nbsp; 🌽 ONLY IN OHIO &nbsp;•&nbsp; 💅 UNSPOKEN RIZZ &nbsp;•&nbsp; 🤖 NPC BEHAVIOR &nbsp;•&nbsp; 🍕 FANUM TAX &nbsp;•&nbsp; 💀 NO CAP FR FR &nbsp;•&nbsp; 🥶 W RIZZ &nbsp;•&nbsp; 🔥 GOATED &nbsp;•&nbsp; 😤 GRINDSET &nbsp;•&nbsp; 🐐 GOAT MODE &nbsp;•&nbsp; 💸 BUSSIN &nbsp;•&nbsp; 😭 IT'S GIVING &nbsp;•&nbsp; 🦈 BASED &nbsp;•&nbsp; 🔊 HAWK TUAH &nbsp;•&nbsp; 😈 QUANDALE &nbsp;•&nbsp; 💜 GRIMACE &nbsp;•&nbsp; 🏋️ GIGACHAD
   </div>
 </div>
 
-<!-- ============================
-     MAIN CARDS
-============================ -->
-<section class="grid">
+<!-- CARD GRID (generated by JS) -->
+<section class="grid" id="card-grid"></section>
 
-  <!-- SKIBIDI -->
-  <div class="card card-skibidi" style="--flt:3.2s; --rot:1deg;" onclick="spawnEmojis('🚽', this)">
-    <img src="brainrot-assets/skibidi.png" alt="Skibidi Toilet" class="card-img" />
-    <div class="card-body">
-      <span class="card-tag">🚽 SKIBIDI</span>
-      <div class="card-title">SKIBIDI TOILET</div>
-      <div class="card-desc">The OG brainrot. Un WC avec une tête humaine qui chante. C'est peak internet. 💀 Skibidi bop bop bop yes yes yes</div>
-    </div>
-  </div>
-
-  <!-- SIGMA -->
-  <div class="card card-sigma" style="--flt:4.5s; --rot:-1.5deg;" onclick="spawnEmojis('🐺', this)">
-    <img src="brainrot-assets/sigma.png" alt="Sigma Wolf" class="card-img" />
-    <div class="card-body">
-      <span class="card-tag">🐺 SIGMA</span>
-      <div class="card-title">SIGMA WOLF</div>
-      <div class="card-desc">Je ne parle pas aux betas. Le grindset c'est ma religion. Je wake up à 3h pour méditer. No distractions. 🔥</div>
-    </div>
-  </div>
-
-  <!-- OHIO -->
-  <div class="card card-ohio" style="--flt:5.1s; --rot:2deg;" onclick="spawnEmojis('🌽', this)">
-    <img src="brainrot-assets/ohio.png" alt="Ohio Meme" class="card-img" />
-    <div class="card-body">
-      <span class="card-tag">🌽 OHIO</span>
-      <div class="card-title">ONLY IN OHIO</div>
-      <div class="card-desc">Ohio est une dimension parallèle. Des choses CURSED se passent là-bas. Tu ne veux pas savoir. 💀☠️😱</div>
-    </div>
-  </div>
-
-  <!-- RIZZ -->
-  <div class="card card-rizz" style="--flt:3.8s; --rot:-0.5deg;" onclick="spawnEmojis('💅', this)">
-    <img src="brainrot-assets/rizz.png" alt="Rizz King" class="card-img" />
-    <div class="card-body">
-      <span class="card-tag">💅 RIZZ</span>
-      <div class="card-title">UNSPOKEN RIZZ</div>
-      <div class="card-desc">Le rizz c'est le charme ultime. Tu n'as même pas besoin de parler. Ils tombent amoureux sans que tu dises un mot. 🌹✨</div>
-    </div>
-  </div>
-
-  <!-- NPC -->
-  <div class="card card-npc" style="--flt:6s; --rot:1.5deg;" onclick="spawnEmojis('🤖', this)">
-    <img src="brainrot-assets/npc.png" alt="NPC Character" class="card-img" />
-    <div class="card-body">
-      <span class="card-tag">🤖 NPC</span>
-      <div class="card-title">NPC MODE</div>
-      <div class="card-desc">GEN Z: "Tu es un NPC." MOI: *fait le même chemin tous les jours et dit les mêmes 3 phrases* 💀 "Have a good one!"</div>
-    </div>
-  </div>
-
-  <!-- FANUM -->
-  <div class="card card-fanum" style="--flt:4.2s; --rot:-2deg;" onclick="spawnEmojis('🍕', this)">
-    <img src="brainrot-assets/fanum.png" alt="Fanum Tax" class="card-img" />
-    <div class="card-body">
-      <span class="card-tag">🍕 FANUM TAX</span>
-      <div class="card-title">FANUM TAX</div>
-      <div class="card-desc">C'est pas du vol, c'est une TAX. Pose ta pizza par terre mon reuf. T'as pas payé ta taxe Fanum aujourd'hui? 💸</div>
-    </div>
-  </div>
-
-</section>
-
-<!-- ============================
-     TEXT WALL
-============================ -->
+<!-- TEXT WALL -->
 <div class="text-wall">
-  <div class="text-row" style="--speed:22s; color: #ff00ff;">
-    SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA&nbsp;
-    SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA&nbsp;
-  </div>
-  <div class="text-row" style="--speed:16s; color: #00ffff;">
-    SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI&nbsp;
-    SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI&nbsp;
-  </div>
-  <div class="text-row" style="--speed:28s; color: #ffff00;">
-    OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO&nbsp;
-    OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO&nbsp;
-  </div>
-  <div class="text-row" style="--speed:19s; color: #ff00aa;">
-    RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ&nbsp;
-    RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ&nbsp;
-  </div>
+  <div class="text-row" style="--s:22s;color:#ff00ff">SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA &nbsp; SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA SIGMA &nbsp;</div>
+  <div class="text-row" style="--s:16s;color:#00ffff">SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI &nbsp; SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI SKIBIDI &nbsp;</div>
+  <div class="text-row" style="--s:28s;color:#ffff00">OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO &nbsp; OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO OHIO &nbsp;</div>
+  <div class="text-row" style="--s:19s;color:#ff00aa">RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ &nbsp; RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ RIZZ &nbsp;</div>
+  <div class="text-row" style="--s:24s;color:#cc00ff">QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE &nbsp; QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE QUANDALE &nbsp;</div>
 </div>
 
-<!-- ============================
-     SIGMA GRINDSET
-============================ -->
+<!-- SIGMA GRINDSET -->
 <section class="sigma-section">
-  <div class="section-header-wrap">
-    <h2 class="sigma-title">🐺 SIGMA GRINDSET 🐺</h2>
-  </div>
+  <h2 class="sigma-title">🐺 SIGMA GRINDSET 🐺</h2>
   <div class="sigma-quotes">
-    <div class="sigma-quote">
-      <span class="quote-icon">😤</span>
-      "Je me réveille à 3h du matin. Les betas dorment encore. Le soleil n'a pas le droit de se lever avant moi."
-    </div>
-    <div class="sigma-quote">
-      <span class="quote-icon">🐺</span>
-      "Je n'ai pas d'amis. J'ai des associés. Et même eux sont des distractions potentielles."
-    </div>
-    <div class="sigma-quote">
-      <span class="quote-icon">💰</span>
-      "Mon petit-déjeuner : eau froide, mindset positif et mépris des gens normaux."
-    </div>
-    <div class="sigma-quote">
-      <span class="quote-icon">🔥</span>
-      "Tu ris maintenant. Dans 10 ans je serai milliardaire et tu seras encore sur TikTok."
-    </div>
-    <div class="sigma-quote">
-      <span class="quote-icon">🧠</span>
-      "L'école t'apprend à être un employé. Moi je lis 47 livres par an. No cap."
-    </div>
-    <div class="sigma-quote">
-      <span class="quote-icon">😎</span>
-      "Je ne regarde pas les gens dans les yeux. Ce n'est pas de la timidité — c'est du SIGMA."
-    </div>
+    <div class="sigma-quote"><span class="qi">😤</span>"Je me réveille à 3h du matin. Les betas dorment encore."</div>
+    <div class="sigma-quote"><span class="qi">🐺</span>"Je n'ai pas d'amis. J'ai des associés. Et même eux sont des distractions."</div>
+    <div class="sigma-quote"><span class="qi">💰</span>"Mon petit-déj : eau froide, mindset positif et mépris des normaux."</div>
+    <div class="sigma-quote"><span class="qi">🔥</span>"Tu ris maintenant. Dans 10 ans je serai milliardaire."</div>
+    <div class="sigma-quote"><span class="qi">🧠</span>"L'école t'apprend à être employé. Moi je lis 47 livres par an."</div>
+    <div class="sigma-quote"><span class="qi">😎</span>"Je ne regarde pas les gens dans les yeux. C'est du SIGMA, pas de la timidité."</div>
   </div>
 </section>
 
 <div class="divider">⚡🔥💀🔥⚡</div>
 
-<!-- ============================
-     OHIO DANGER ZONE
-============================ -->
+<!-- OHIO -->
 <section class="ohio-section">
   <div class="ohio-bg"></div>
-  <div class="section-header-wrap" style="position:relative">
-    <h2 class="ohio-title">☠️ ONLY IN OHIO ☠️</h2>
-  </div>
+  <h2 class="ohio-title" style="position:relative">☠️ ONLY IN OHIO ☠️</h2>
   <div class="ohio-facts">
     <div class="ohio-fact">🌽 Les maïs poussent avec des yeux en Ohio. Ils te regardent.</div>
     <div class="ohio-fact">🌀 La gravité fonctionne à l'envers tous les mardis en Ohio.</div>
     <div class="ohio-fact">🐄 Les vaches en Ohio ont 6 pattes. Les scientifiques ne savent pas pourquoi.</div>
     <div class="ohio-fact">💀 Il n'y a pas de nuit en Ohio. Il n'y a que du "pas encore le matin".</div>
     <div class="ohio-fact">🌽 En Ohio, les skibidi toilets sont considérés comme des élus.</div>
-    <div class="ohio-fact">😰 Personne n'a jamais quitté l'Ohio. Ils disent qu'ils l'ont fait. Mais ils sont là.</div>
+    <div class="ohio-fact">😰 Personne n'a jamais vraiment quitté l'Ohio.</div>
   </div>
 </section>
 
 <div class="divider">💅✨🌹✨💅</div>
 
-<!-- ============================
-     RIZZ METER
-============================ -->
+<!-- RIZZ METER -->
 <section class="rizz-section">
-  <div class="section-header-wrap">
-    <h2 class="rizz-title">💅 TON RIZZ SCORE 💅</h2>
-  </div>
-  <div class="rizz-meter-wrap">
-    <div class="rizz-label">Unspoken Rizz 👑</div>
-    <div class="rizz-bar-bg">
-      <div class="rizz-bar-fill" style="--w:92%; --delay:1.2s; background: linear-gradient(90deg,#ff00ff,#ff00aa)"></div>
-    </div>
-    <div class="rizz-label">Ohio Rizz 🌽</div>
-    <div class="rizz-bar-bg">
-      <div class="rizz-bar-fill" style="--w:73%; --delay:1.6s; background: linear-gradient(90deg,#ff3300,#990000)"></div>
-    </div>
-    <div class="rizz-label">Sigma Aura 🐺</div>
-    <div class="rizz-bar-bg">
-      <div class="rizz-bar-fill" style="--w:99%; --delay:2s; background: linear-gradient(90deg,#ff6600,#ffff00)"></div>
-    </div>
-    <div class="rizz-label">Skibidi Power 🚽</div>
-    <div class="rizz-bar-bg">
-      <div class="rizz-bar-fill" style="--w:100%; --delay:2.4s; background: linear-gradient(90deg,#00ffff,#0044ff)"></div>
-    </div>
-    <div class="rizz-label">NPC Energy 🤖</div>
-    <div class="rizz-bar-bg">
-      <div class="rizz-bar-fill" style="--w:11%; --delay:2.8s; background: linear-gradient(90deg,#888,#aaa)"></div>
-    </div>
-    <div class="rizz-label">Fanum Tax Expertise 🍕</div>
-    <div class="rizz-bar-bg">
-      <div class="rizz-bar-fill" style="--w:88%; --delay:3.2s; background: linear-gradient(90deg,#ffff00,#ff6600)"></div>
-    </div>
+  <h2 class="rizz-title">💅 TON RIZZ SCORE 💅</h2>
+  <div class="rizz-wrap">
+    <div class="rlabel">Unspoken Rizz 👑</div>
+    <div class="rbar-bg"><div class="rbar-fill" style="--w:92%;--dl:1.2s;background:linear-gradient(90deg,#f0f,#f0a)"></div></div>
+    <div class="rlabel">Ohio Rizz 🌽</div>
+    <div class="rbar-bg"><div class="rbar-fill" style="--w:73%;--dl:1.6s;background:linear-gradient(90deg,#f30,#900)"></div></div>
+    <div class="rlabel">Sigma Aura 🐺</div>
+    <div class="rbar-bg"><div class="rbar-fill" style="--w:99%;--dl:2s;background:linear-gradient(90deg,#f60,#ff0)"></div></div>
+    <div class="rlabel">Skibidi Power 🚽</div>
+    <div class="rbar-bg"><div class="rbar-fill" style="--w:100%;--dl:2.4s;background:linear-gradient(90deg,#0ff,#04f)"></div></div>
+    <div class="rlabel">NPC Energy 🤖</div>
+    <div class="rbar-bg"><div class="rbar-fill" style="--w:11%;--dl:2.8s;background:linear-gradient(90deg,#888,#aaa)"></div></div>
+    <div class="rlabel">Fanum Tax Expertise 🍕</div>
+    <div class="rbar-bg"><div class="rbar-fill" style="--w:88%;--dl:3.2s;background:linear-gradient(90deg,#ff0,#f60)"></div></div>
+    <div class="rlabel">Quandale Dingle Aura 😈</div>
+    <div class="rbar-bg"><div class="rbar-fill" style="--w:77%;--dl:3.6s;background:linear-gradient(90deg,#c0f,#f06)"></div></div>
+    <div class="rlabel">Grimace Shake Drip 💜</div>
+    <div class="rbar-bg"><div class="rbar-fill" style="--w:96%;--dl:4s;background:linear-gradient(90deg,#90f,#f0f)"></div></div>
   </div>
 </section>
 
 <div class="divider">🤖💻🤖💻🤖</div>
 
-<!-- ============================
-     NPC MODE
-============================ -->
+<!-- NPC MODE -->
 <section class="npc-section">
-  <div class="section-header-wrap">
-    <h2 class="npc-title">🤖 NPC MODE ACTIVATED 🤖</h2>
-  </div>
-  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:24px; margin-top:40px;">
-    <div class="npc-dialogue">
-      <div class="typewriter" id="npc-text">Have a good one! Thanks for stopping by!</div>
-    </div>
-    <div style="text-align:center; margin-top:30px; width:100%;">
-      <button class="counter-btn" onclick="cycleNPC()" style="background:linear-gradient(135deg,#555,#888);">
-        🤖 Interact with NPC
-      </button>
-    </div>
+  <h2 class="npc-title">🤖 NPC MODE ACTIVATED 🤖</h2>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:20px;margin-top:40px">
+    <div class="npc-dlg"><div class="typewriter" id="npc-text">Have a good one! Thanks for stopping by!</div></div>
+    <button class="btn btn-cyan" style="background:linear-gradient(135deg,#555,#888)" onclick="cycleNPC()">🤖 Interact with NPC</button>
   </div>
 </section>
 
-<!-- ============================
-     SKIBIDI COUNTER
-============================ -->
+<!-- SKIBIDI COUNTER -->
 <section class="counter-section">
   <div class="counter-title">🚽 SKIBIDI COUNTER — COMBIEN DE FOIS TU AS DIT SKIBIDI AUJOURD'HUI?</div>
-  <div class="counter-display" id="counter">0</div>
-  <br/>
-  <button class="counter-btn" onclick="incrementCounter()">
-    🚽 +1 SKIBIDI
-  </button>
-  <button class="counter-btn" onclick="resetCounter()" style="background:linear-gradient(135deg,#440000,#880000); margin-left:16px; color:#fff;">
-    RESET 💀
-  </button>
+  <div class="counter-display" id="counter">0</div><br>
+  <button class="btn btn-cyan" onclick="incrementCounter()">🚽 +1 SKIBIDI</button>
+  <button class="btn btn-red" onclick="resetCounter()">RESET 💀</button>
 </section>
 
 <div class="divider">🍕💸🍕💸🍕</div>
 
-<!-- ============================
-     FANUM TAX
-============================ -->
+<!-- FANUM TAX -->
 <section class="fanum-section">
-  <div class="section-header-wrap">
-    <h2 class="fanum-title">🍕 FANUM TAX CALCULATOR 🍕</h2>
-  </div>
-  <div style="max-width:500px; margin:40px auto 0; text-align:center;">
-    <p style="color:#ffff88; font-size:1.1rem; margin-bottom:20px;">Combien de nourriture Fanum mérite-t-il?</p>
+  <h2 class="fanum-title">🍕 FANUM TAX CALCULATOR 🍕</h2>
+  <div style="max-width:500px;margin:40px auto 0;text-align:center">
+    <p style="color:#ff8;font-size:1.1rem;margin-bottom:20px">Combien de nourriture Fanum mérite-t-il?</p>
     <input type="number" id="food-amount" placeholder="Valeur de ta nourriture (€)" min="0" step="0.50"
-      style="width:100%; padding:16px; border-radius:12px; border:2px solid #ffff44; background:rgba(255,255,0,0.08); color:#ffff00; font-family:'Fredoka One',cursive; font-size:1.3rem; text-align:center; outline:none;">
-    <div style="margin-top:20px; padding:20px; background:rgba(255,255,0,0.1); border:2px solid #ffff4444; border-radius:12px;">
-      <div style="color:#aaa; font-size:1rem;">LA FANUM TAX (34.7%):</div>
-      <div id="fanum-result" style="font-family:'Bangers',cursive; font-size:3rem; color:#ffff00; letter-spacing:3px; text-shadow:0 0 20px #ffff00;">0.00€</div>
+      style="width:100%;padding:16px;border-radius:12px;border:2px solid #ff4;background:rgba(255,255,0,.08);color:#ff0;font-family:'Fredoka One',cursive;font-size:1.3rem;text-align:center;outline:none">
+    <div style="margin-top:20px;padding:20px;background:rgba(255,255,0,.1);border:2px solid #ff04;border-radius:12px">
+      <div style="color:#aaa;font-size:1rem">LA FANUM TAX (34.7%):</div>
+      <div id="fanum-result" style="font-family:'Bangers',cursive;font-size:3rem;color:#ff0;letter-spacing:3px;text-shadow:0 0 20px #ff0">0.00€</div>
     </div>
-    <p style="color:rgba(255,255,0,0.5); font-size:0.9rem; margin-top:10px;">* La taxe Fanum est obligatoire. C'est la loi.</p>
+    <p style="color:rgba(255,255,0,.5);font-size:.9rem;margin-top:10px">* La taxe Fanum est obligatoire. C'est la loi.</p>
   </div>
 </section>
 
-<!-- ============================
-     FOOTER
-============================ -->
-<footer class="footer">
+<footer>
   <p>💀 BRAINROT CENTRAL 2025 💀</p>
-  <p style="margin-top:8px; font-size:1rem;">Made with maximum <strong style="color:#ff00ff;">RIZZ</strong> and zero <strong style="color:#00ffff;">NPC energy</strong> 🔥</p>
-  <p style="margin-top:8px; font-size:0.9rem; opacity:0.5;">⚠️ Aucun neurone n'a survécu à la création de ce site ⚠️</p>
+  <p style="margin-top:8px;font-size:1rem">Made with maximum <strong style="color:#f0f">RIZZ</strong> and zero <strong style="color:#0ff">NPC energy</strong> 🔥</p>
+  <p style="margin-top:8px;font-size:.9rem;opacity:.5">⚠️ Aucun neurone n'a survécu à la création de ce site ⚠️</p>
 </footer>
 
-<!-- ============================
-     JAVASCRIPT
-============================ -->
 <script>
-  /* ---- Stars ---- */
-  const starBg = document.getElementById('stars');
-  for (let i = 0; i < 120; i++) {
-    const s = document.createElement('div');
-    s.className = 'star';
-    const size = Math.random() * 3 + 1;
-    s.style.cssText = `
-      width:${size}px; height:${size}px;
-      left:${Math.random()*100}%;
-      top:${Math.random()*100}%;
-      --dur:${(Math.random()*4+1).toFixed(1)}s;
-      animation-delay:${(Math.random()*4).toFixed(1)}s;
-    `;
-    starBg.appendChild(s);
-  }
+// =================== BRAINROT DATA ===================
+const CARDS = [
+  { img:'brainrot-assets/skibidi.png',  tag:'🚽 SKIBIDI',    title:'SKIBIDI TOILET',   theme:'c-cyan',   f:'3.2s', r:'1deg',   sound:'skibidi'  },
+  { img:'brainrot-assets/sigma.png',    tag:'🐺 SIGMA',      title:'SIGMA WOLF',       theme:'c-orange', f:'4.5s', r:'-1.5deg',sound:'sigma'    },
+  { img:'brainrot-assets/ohio.png',     tag:'🌽 OHIO',       title:'ONLY IN OHIO',     theme:'c-red',    f:'5.1s', r:'2deg',   sound:'ohio'     },
+  { img:'brainrot-assets/rizz.png',     tag:'💅 RIZZ',       title:'UNSPOKEN RIZZ',    theme:'c-pink',   f:'3.8s', r:'-0.5deg',sound:'rizz'     },
+  { img:'brainrot-assets/npc.png',      tag:'🤖 NPC',        title:'NPC MODE',         theme:'c-gray',   f:'6s',   r:'1.5deg', sound:'npc'      },
+  { img:'brainrot-assets/fanum.png',    tag:'🍕 FANUM TAX',  title:'FANUM TAX',        theme:'c-yellow', f:'4.2s', r:'-2deg',  sound:'fanum'    },
+  { img:'brainrot-assets/quandale.png', tag:'😈 QUANDALE',   title:'QUANDALE DINGLE',  theme:'c-purple', f:'3.5s', r:'1.8deg', sound:'quandale' },
+  { img:'brainrot-assets/grimace.png',  tag:'💜 GRIMACE',    title:'GRIMACE SHAKE',    theme:'c-purple', f:'5.5s', r:'-1deg',  sound:'grimace'  },
+  { img:'brainrot-assets/gigachad.png', tag:'🏋️ GIGACHAD',  title:'GIGA CHAD',        theme:'c-white',  f:'4s',   r:'0.5deg', sound:'gigachad' },
+  { img:'brainrot-assets/babygronk.png',tag:'🏈 BABY GRONK', title:'BABY GRONK',       theme:'c-orange', f:'3s',   r:'-0.8deg',sound:'babygronk'},
+  { img:'brainrot-assets/sus.png',      tag:'🔴 SUS',        title:'AMONG US',         theme:'c-red',    f:'4.8s', r:'2.5deg', sound:'sus'      },
+  { img:'brainrot-assets/hawktuah.png', tag:'🔊 HAWK TUAH',  title:'HAWK TUAH',        theme:'c-green',  f:'5.2s', r:'-1.5deg',sound:'hawktuah' },
+  { img:'brainrot-assets/mewing.png',   tag:'🦷 MEWING',     title:'LOOKSMAXX KING',   theme:'c-cyan',   f:'3.7s', r:'1.2deg', sound:'mewing'   },
+  { img:'brainrot-assets/brainworm.png',tag:'🧠 BRAINWORM',  title:'BRAIN PARASITE',   theme:'c-pink',   f:'6.5s', r:'-2.5deg',sound:'brainworm'},
+  { img:'brainrot-assets/caseoh.png',   tag:'🎮 CASEOH',     title:'CASEOH',           theme:'c-blue',   f:'4.3s', r:'0.7deg', sound:'caseoh'   },
+  { img:'brainrot-assets/subway.png',   tag:'🚇 SUBWAY',     title:'SUBWAY SURFER',    theme:'c-green',  f:'3.9s', r:'-1.8deg',sound:'subway'   },
+  { img:'brainrot-assets/gooncat.png',  tag:'😺 GOON CAT',   title:'GOONER CAT',       theme:'c-yellow', f:'5.8s', r:'3deg',   sound:'gooncat'  },
+];
 
-  /* ---- Popup ---- */
-  function closePopup() {
-    document.getElementById('popup').style.display = 'none';
-    spawnRandEmojis();
-  }
-
-  /* ---- Floating emojis on card click ---- */
-  function spawnEmojis(emoji, el) {
-    const rect = el.getBoundingClientRect();
-    for (let i = 0; i < 10; i++) {
-      const e = document.createElement('div');
-      e.className = 'floating-emoji';
-      e.textContent = emoji;
-      e.style.left = (rect.left + rect.width / 2 + (Math.random() - 0.5) * 100) + 'px';
-      e.style.top  = (rect.top + window.scrollY + (Math.random() - 0.5) * 60) + 'px';
-      e.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
-      e.style.setProperty('--dur', (Math.random() * 2 + 3) + 's');
-      document.body.appendChild(e);
-      setTimeout(() => e.remove(), 5000);
-    }
-  }
-
-  /* ---- Random emojis at start ---- */
-  function spawnRandEmojis() {
-    const emojis = ['🚽','🐺','🌽','💅','🤖','🍕','💀','🔥','😭','⚡','🥶','😤'];
-    for (let i = 0; i < 20; i++) {
-      setTimeout(() => {
-        const e = document.createElement('div');
-        e.className = 'floating-emoji';
-        e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        e.style.left   = (Math.random() * 100) + 'vw';
-        e.style.top    = '100vh';
-        e.style.fontSize = (Math.random() * 2 + 1.5) + 'rem';
-        e.style.setProperty('--dur', (Math.random() * 4 + 3) + 's');
-        document.body.appendChild(e);
-        setTimeout(() => e.remove(), 7000);
-      }, i * 200);
-    }
-  }
-
-  /* ---- Counter ---- */
-  let count = 0;
-  let popCount = 0;
-  const counterEl = document.getElementById('counter');
-
-  function incrementCounter() {
-    count++;
-    popCount++;
-    counterEl.textContent = count;
-    counterEl.style.animation = 'none';
-    void counterEl.offsetWidth;
-    counterEl.style.animation = 'counter-pop 0.1s ease-out';
-    counterEl.style.transform = 'scale(1.2)';
-    setTimeout(() => counterEl.style.transform = '', 200);
-
-    // Special milestones
-    const milestones = {
-      7:  ['🔥', 'W RIZZ UNLOCKED'],
-      10: ['💀', 'NPC detected...'],
-      25: ['🐺', 'SIGMA GRINDSET ACHIEVED'],
-      50: ['🌽', 'OHIO LEVEL REACHED'],
-      69: ['💅', 'UNSPOKEN RIZZ MOMENT'],
-      100:['🚽', 'SKIBIDI GOD'],
-    };
-    if (milestones[count]) {
-      showMilestone(...milestones[count]);
-    }
-    spawnCounterEmoji();
-  }
-
-  function resetCounter() {
-    count = 0;
-    counterEl.textContent = '0';
-    counterEl.style.color = 'white';
-  }
-
-  function spawnCounterEmoji() {
-    const emojis = ['🚽','💀','🔥','⚡'];
-    const e = document.createElement('div');
-    e.className = 'floating-emoji';
-    e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    const btn = document.querySelector('.counter-btn');
-    const rect = btn.getBoundingClientRect();
-    e.style.left = (rect.left + rect.width/2 + (Math.random()-0.5)*80) + 'px';
-    e.style.top  = (rect.top + window.scrollY) + 'px';
-    e.style.setProperty('--dur', '3s');
-    document.body.appendChild(e);
-    setTimeout(() => e.remove(), 3000);
-  }
-
-  function showMilestone(emoji, text) {
-    const box = document.createElement('div');
-    box.style.cssText = `
-      position:fixed; bottom:30px; right:30px; z-index:9000;
-      background:linear-gradient(135deg,#0d0024,#002233);
-      border:3px solid #ffff00; border-radius:20px; padding:20px 30px;
-      text-align:center; box-shadow:0 0 40px #ffff0044;
-      font-family:'Bangers',cursive; animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
-      transform-origin: bottom right;
-    `;
-    box.innerHTML = `<div style="font-size:3rem">${emoji}</div><div style="color:#ffff00;font-size:1.5rem;letter-spacing:2px">${text}</div>`;
-    document.body.appendChild(box);
-    setTimeout(() => box.remove(), 3000);
-  }
-
-  /* ---- NPC Dialogue ---- */
-  const npcLines = [
-    "Have a good one! Thanks for stopping by!",
-    "It's a beautiful day today, isn't it?",
-    "I can't believe the price of milk these days.",
-    "Did you hear about the latest news?",
-    "I love my job! Every day is the same!",
-    "My favorite color is beige.",
-    "I always take this exact same route.",
-    "Nothing suspicious here. Move along.",
-    "ERROR: DIALOGUE_NOT_FOUND.exe",
-    "Have a good one! Thanks for stopping by!",
-  ];
-  let npcIdx = 0;
-  function cycleNPC() {
-    npcIdx = (npcIdx + 1) % npcLines.length;
-    const el = document.getElementById('npc-text');
-    el.style.animation = 'none';
-    el.textContent = npcLines[npcIdx];
-    void el.offsetWidth;
-    el.style.animation = 'typewriter 3s steps(40) infinite';
-  }
-
-  /* ---- Fanum Tax Calculator ---- */
-  document.getElementById('food-amount').addEventListener('input', function() {
-    const val = parseFloat(this.value) || 0;
-    const tax = (val * 0.347).toFixed(2);
-    document.getElementById('fanum-result').textContent = tax + '€';
+// =================== BUILD CARDS ===================
+const grid = document.getElementById('card-grid');
+CARDS.forEach(c => {
+  const el = document.createElement('div');
+  el.className = `card ${c.theme}`;
+  el.style.cssText = `--f:${c.f};--r:${c.r}`;
+  el.innerHTML = `
+    <img src="${c.img}" alt="${c.title}" loading="lazy"/>
+    <div class="card-body">
+      <span class="card-tag">${c.tag}</span>
+      <div class="card-title">${c.title}</div>
+      <div class="sound-wave" id="sw-${c.sound}">
+        ${[...Array(8)].map((_,i)=>`<div class="bar" style="--sp:${(0.15+Math.random()*.25).toFixed(2)}s;--i:${i+1}"></div>`).join('')}
+      </div>
+    </div>`;
+  el.addEventListener('click', () => {
+    playSound(c.sound);
+    spawnEmojis(c.tag.split(' ')[0], el);
   });
+  grid.appendChild(el);
+});
 
-  /* ---- Random emoji shower every 10s ---- */
-  setInterval(() => {
-    const emojis = ['🚽','🐺','🌽','💅','🤖','🍕','💀','🔥','😭','⚡','🥶','😤'];
-    const e = document.createElement('div');
-    e.className = 'floating-emoji';
-    e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    e.style.left   = (Math.random() * 100) + 'vw';
-    e.style.top    = '100vh';
-    e.style.fontSize = (Math.random() * 2 + 1.5) + 'rem';
-    e.style.setProperty('--dur', (Math.random() * 4 + 4) + 's');
+// =================== WEB AUDIO SOUNDS ===================
+let audioCtx = null;
+function getCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playTone(freq, type, duration, delay=0, gainVal=0.3) {
+  const ctx = getCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.type = type; osc.frequency.value = freq;
+  gain.gain.setValueAtTime(gainVal, ctx.currentTime + delay);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + duration);
+  osc.start(ctx.currentTime + delay);
+  osc.stop(ctx.currentTime + delay + duration);
+}
+
+function playNoise(duration, delay=0) {
+  const ctx = getCtx();
+  const buf = ctx.createBuffer(1, ctx.sampleRate * duration, ctx.sampleRate);
+  const d = buf.getChannelData(0);
+  for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1;
+  const src = ctx.createBufferSource();
+  src.buffer = buf;
+  const g = ctx.createGain();
+  src.connect(g); g.connect(ctx.destination);
+  g.gain.setValueAtTime(0.15, ctx.currentTime+delay);
+  g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+delay+duration);
+  src.start(ctx.currentTime+delay);
+}
+
+const SOUNDS = {
+  skibidi:   ()=>{ playTone(523,'sine',.2); playTone(659,'sine',.2,.15); playTone(784,'square',.3,.3); },
+  sigma:     ()=>{ [200,180,160,140].forEach((f,i)=>playTone(f,'sawtooth',.25,i*.12,.2)); },
+  ohio:      ()=>{ playNoise(.05); playTone(100,'triangle',.5,.05,.25); playTone(80,'square',.4,.2,.15); },
+  rizz:      ()=>{ [880,988,1047,1175].forEach((f,i)=>playTone(f,'sine',.15,i*.08,.25)); },
+  npc:       ()=>{ playTone(440,'square',.1); playTone(440,'square',.1,.2); playTone(440,'square',.1,.4); },
+  fanum:     ()=>{ playTone(1800,'sawtooth',.05); playNoise(.1,.08); playTone(600,'triangle',.3,.15); },
+  quandale:  ()=>{ [300,250,200,350,400].forEach((f,i)=>playTone(f,'triangle',.2,i*.09,.3)); },
+  grimace:   ()=>{ playTone(150,'sine',.6,0,.35); playTone(180,'sine',.4,.2,.25); playTone(200,'triangle',.3,.5,.2); },
+  gigachad:  ()=>{ playTone(55,'sawtooth',.8,0,.4); playTone(82,'sawtooth',.5,.3,.3); },
+  babygronk: ()=>{ [600,500,400,700].forEach((f,i)=>playTone(f,'square',.15,i*.1,.2)); },
+  sus:       ()=>{ playTone(392,'sine',.2); playTone(329,'sine',.3,.18); playTone(261,'triangle',.5,.4); },
+  hawktuah:  ()=>{ playTone(700,'square',.05); playNoise(.08,.07); playTone(900,'sine',.15,.15,.3); },
+  mewing:    ()=>{ [200,400,300,500].forEach((f,i)=>playTone(f,'sine',.2,i*.15,.25)); },
+  brainworm: ()=>{ let t=0; for(let i=0;i<10;i++){playTone(200+Math.random()*600,'sawtooth',.08,t,.15); t+=.07;} },
+  caseoh:    ()=>{ playTone(261,'sine',.1); playTone(523,'sine',.1,.15); playNoise(.05,.3); playTone(1046,'square',.2,.38,.25); },
+  subway:    ()=>{ [440,494,523,587,659].forEach((f,i)=>playTone(f,'square',.12,i*.07,.2)); },
+  gooncat:   ()=>{ playTone(800,'triangle',.3); playTone(600,'triangle',.3,.2); playTone(400,'triangle',.4,.4); },
+};
+
+function playSound(name) {
+  try {
+    if(SOUNDS[name]) SOUNDS[name]();
+  } catch(e) { console.warn('audio err', e); }
+  // show wave
+  const sw = document.getElementById('sw-'+name);
+  if(sw) {
+    sw.classList.add('active');
+    setTimeout(()=>sw.classList.remove('active'), 1500);
+  }
+  // pulse ring on card
+  const card = sw?.closest('.card');
+  if(card) {
+    card.classList.remove('playing');
+    void card.offsetWidth;
+    card.classList.add('playing');
+    setTimeout(()=>card.classList.remove('playing'),700);
+  }
+}
+
+// =================== STARS ===================
+const starBg = document.getElementById('stars');
+for(let i=0;i<140;i++){
+  const s=document.createElement('div'); s.className='star';
+  const sz=Math.random()*3+1;
+  s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${(Math.random()*4+1).toFixed(1)}s;animation-delay:${(Math.random()*4).toFixed(1)}s`;
+  starBg.appendChild(s);
+}
+
+// =================== POPUP ===================
+function closePopup(){
+  document.getElementById('popup').style.display='none';
+  spawnRandEmojis();
+}
+
+// =================== EMOJIS ===================
+function spawnEmojis(emoji, el){
+  const r=el.getBoundingClientRect();
+  for(let i=0;i<12;i++){
+    const e=document.createElement('div'); e.className='emoji-fly';
+    e.textContent=emoji;
+    e.style.left=(r.left+r.width/2+(Math.random()-.5)*120)+'px';
+    e.style.top=(r.top+window.scrollY+(Math.random()-.5)*60)+'px';
+    e.style.fontSize=(Math.random()*1.5+1)+'rem';
+    e.style.setProperty('--d',(Math.random()*2+3)+'s');
     document.body.appendChild(e);
-    setTimeout(() => e.remove(), 8000);
-  }, 800);
+    setTimeout(()=>e.remove(),5000);
+  }
+}
+function spawnRandEmojis(){
+  const em=['🚽','🐺','🌽','💅','🤖','🍕','💀','🔥','😭','⚡','🥶','😤','💜','😈','🏋️','😺'];
+  for(let i=0;i<25;i++) setTimeout(()=>{
+    const e=document.createElement('div'); e.className='emoji-fly';
+    e.textContent=em[Math.floor(Math.random()*em.length)];
+    e.style.left=(Math.random()*100)+'vw';
+    e.style.top='100vh';
+    e.style.fontSize=(Math.random()*2+1.5)+'rem';
+    e.style.setProperty('--d',(Math.random()*4+3)+'s');
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),8000);
+  },i*150);
+}
 
-  /* ---- Konami code easter egg ---- */
-  let konamiCode = [];
-  const konamiSequence = [38,38,40,40,37,39,37,39,66,65];
-  document.addEventListener('keydown', (e) => {
-    konamiCode.push(e.keyCode);
-    konamiCode = konamiCode.slice(-10);
-    if (konamiCode.join(',') === konamiSequence.join(',')) {
-      showMilestone('🚽', 'ULTIMATE SKIBIDI MODE');
-      document.body.style.animation = 'shake 0.05s infinite';
-      setTimeout(() => document.body.style.animation = '', 3000);
-      for (let i = 0; i < 50; i++) {
-        setTimeout(() => spawnRandEmojis(), i * 100);
-      }
-    }
-  });
+// =================== COUNTER ===================
+let count=0;
+const counterEl=document.getElementById('counter');
+const milestones={7:['🔥','W RIZZ UNLOCKED'],10:['💀','NPC detected...'],25:['🐺','SIGMA ACHIEVED'],50:['🌽','OHIO LEVEL'],69:['💅','UNSPOKEN RIZZ'],100:['🚽','SKIBIDI GOD'],200:['😈','QUANDALE MODE']};
+function incrementCounter(){
+  count++;
+  counterEl.textContent=count;
+  counterEl.style.transform='scale(1.25)';
+  setTimeout(()=>counterEl.style.transform='',200);
+  if(milestones[count]) showToast(...milestones[count]);
+  playSound('skibidi');
+  const e=document.createElement('div'); e.className='emoji-fly';
+  e.textContent=['🚽','💀','🔥','⚡'][Math.floor(Math.random()*4)];
+  const btn=document.querySelector('.btn-cyan');
+  const r=btn.getBoundingClientRect();
+  e.style.left=(r.left+r.width/2+(Math.random()-.5)*60)+'px';
+  e.style.top=(r.top+window.scrollY)+'px';
+  e.style.setProperty('--d','3s');
+  document.body.appendChild(e);
+  setTimeout(()=>e.remove(),3000);
+}
+function resetCounter(){count=0;counterEl.textContent='0';}
+
+function showToast(emoji,text){
+  const d=document.createElement('div'); d.className='toast';
+  d.innerHTML=`<div style="font-size:3rem">${emoji}</div><div style="color:#ff0;font-size:1.5rem;letter-spacing:2px">${text}</div>`;
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(),3000);
+}
+
+// =================== NPC ===================
+const npcLines=["Have a good one! Thanks for stopping by!","It's a beautiful day today, isn't it?","I can't believe the price of milk these days.","Did you hear about the latest news?","I love my job! Every day is the same!","My favorite color is beige.","I always take this exact same route.","Nothing suspicious here. Move along.","ERROR: DIALOGUE_NOT_FOUND.exe","Have a good one! Thanks for stopping by!"];
+let npcIdx=0;
+function cycleNPC(){
+  npcIdx=(npcIdx+1)%npcLines.length;
+  const el=document.getElementById('npc-text');
+  el.style.animation='none'; el.textContent=npcLines[npcIdx];
+  void el.offsetWidth; el.style.animation='tw 3s steps(40) infinite';
+  playSound('npc');
+}
+
+// =================== FANUM ===================
+document.getElementById('food-amount').addEventListener('input',function(){
+  const v=parseFloat(this.value)||0;
+  document.getElementById('fanum-result').textContent=(v*.347).toFixed(2)+'€';
+});
+
+// =================== EMOJI RAIN ===================
+setInterval(()=>{
+  const em=['🚽','🐺','🌽','💅','🤖','🍕','💀','🔥','😭','⚡','🥶','😤','💜','😈'];
+  const e=document.createElement('div'); e.className='emoji-fly';
+  e.textContent=em[Math.floor(Math.random()*em.length)];
+  e.style.left=(Math.random()*100)+'vw'; e.style.top='100vh';
+  e.style.fontSize=(Math.random()*2+1.5)+'rem';
+  e.style.setProperty('--d',(Math.random()*4+4)+'s');
+  document.body.appendChild(e); setTimeout(()=>e.remove(),9000);
+},900);
+
+// =================== KONAMI ===================
+let kc=[];
+document.addEventListener('keydown',e=>{
+  kc.push(e.keyCode); kc=kc.slice(-10);
+  if(kc.join(',')==='38,38,40,40,37,39,37,39,66,65'){
+    showToast('🚽','ULTIMATE SKIBIDI MODE');
+    document.body.style.animation='shake .05s infinite';
+    setTimeout(()=>document.body.style.animation='',3000);
+    for(let i=0;i<30;i++) setTimeout(()=>spawnRandEmojis(),i*80);
+  }
+});
 </script>
-
 </body>
 </html>
